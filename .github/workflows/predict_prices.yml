@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container: grandfleet/fbprophet-docker:latest
     steps:
+      - uses: actions/checkout@v1
       - run: |
           python main.py
         name: Run in fbprophet container
