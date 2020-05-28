@@ -14,5 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
+          pip install -r requirements.txt
           python main.py
         name: Run in fbprophet container
