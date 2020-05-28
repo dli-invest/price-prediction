@@ -24,7 +24,7 @@ def get_historical_stock_price(stock):
     return stockData
 
 def main():
-    stock = "APPL"
+    stock = "AAPL"
     df_whole = get_historical_stock_price(stock)
     
     df = df_whole.filter(['Close'])
