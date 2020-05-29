@@ -1,14 +1,7 @@
 on: push
 
 jobs:
-  vm:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo This job does not specify a container.
-          echo It runs directly on the virtual machine.
-        name: Run on VM
-  container:
+  predict_images:
     runs-on: ubuntu-latest
     container: grandfleet/fbprophet-docker:latest
     steps:
@@ -17,3 +10,16 @@ jobs:
           pip install -r requirements.txt
           python main.py
         name: Run in fbprophet container
+      - uses: actions/upload-artifact@v1
+        with:
+          name: images
+          path: images
+  make_report:
+    name: Generate Report
+    needs: predict_images
+    runs-on: windows-latest
+    steps:
+      - name: Download images
+        uses: actions/download-artifact@v1
+        with:
+          name: images

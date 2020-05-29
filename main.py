@@ -68,7 +68,7 @@ def main():
     # L.get_texts()[0].set_text('Actual Close') #change the legend text for 1st plot
     # L.get_texts()[1].set_text('Forecasted Close') #change the legend text for 2nd plot
     
-    plt.savefig('prophet.png', bbox_inches='tight')
+    plt.savefig('images/prophet.png', bbox_inches='tight')
     
     #plot using dataframe's plot function
     viz_df['Actual Close'] = viz_df['Close']
