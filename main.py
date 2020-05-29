@@ -1,16 +1,17 @@
 import pandas as pd
 import numpy as np
 import pandas_datareader.data as web
-from fbprophet import Prophet
 import datetime
 import matplotlib.pyplot as plt
- 
+import json
+from fbprophet import Prophet
+
 plt.rcParams['figure.figsize']=(20,10)
 plt.style.use('ggplot')
 
 #function to get stock data
 def yahoo_stocks(symbol, start, end):
-    return web.DataReader(symbol, 'yahoo', start, end)
+    return web.DataReader(symbol, 'iex', start, end)
 
 def get_historical_stock_price(stock):
     print ("Getting historical stock prices for stock ", stock)
@@ -23,8 +24,7 @@ def get_historical_stock_price(stock):
     stockData = yahoo_stocks(stock, startDate, endDate)
     return stockData
 
-def main():
-    stock = "AAPL"
+def make_predictions(stock):
     df_whole = get_historical_stock_price(stock)
     
     df = df_whole.filter(['Close'])
@@ -68,11 +68,18 @@ def main():
     # L.get_texts()[0].set_text('Actual Close') #change the legend text for 1st plot
     # L.get_texts()[1].set_text('Forecasted Close') #change the legend text for 2nd plot
     
-    plt.savefig('images/prophet.png', bbox_inches='tight')
-    
     #plot using dataframe's plot function
     viz_df['Actual Close'] = viz_df['Close']
     viz_df['Forecasted Close'] = viz_df['yhat_scaled']
     
     viz_df[['Actual Close', 'Forecasted Close']].plot()
+        
+    plt.savefig(f'images/{{stock}}.png', bbox_inches='tight')
+
+def main():
+    with open('config.json') as json_file:
+        data = json.load(json_file)
+    for stock in data["stocks"]:
+        make_predictions(stock)
+
 main()

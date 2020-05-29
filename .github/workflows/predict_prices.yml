@@ -1,5 +1,8 @@
 on: push
 
+env:
+  IEX_API_KEY: ${{ secrets.IEX_API_KEY }}
+
 jobs:
   predict_images:
     runs-on: ubuntu-latest
