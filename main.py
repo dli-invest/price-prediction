@@ -29,11 +29,11 @@ def get_historical_stock_price(stock):
 def make_predictions(stock):
     df_whole = get_historical_stock_price(stock)
     
-    df = df_whole.filter(['Close'])
+    df = df_whole.filter(['close'])
     
     df['ds'] = df.index
     #log transform the ‘Close’ variable to convert non-stationary data to stationary.
-    df['y'] = np.log(df['Close'])
+    df['y'] = np.log(df['close'])
     
     model = Prophet()
     model.fit(df)
@@ -71,7 +71,7 @@ def make_predictions(stock):
     # L.get_texts()[1].set_text('Forecasted Close') #change the legend text for 2nd plot
     
     #plot using dataframe's plot function
-    viz_df['Actual Close'] = viz_df['Close']
+    viz_df['Actual Close'] = viz_df['close']
     viz_df['Forecasted Close'] = viz_df['yhat_scaled']
     
     viz_df[['Actual Close', 'Forecasted Close']].plot()
