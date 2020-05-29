@@ -82,6 +82,10 @@ def main():
     with open('config.json') as json_file:
         data = json.load(json_file)
     for stock in data["stocks"]:
-        make_predictions(stock)
+        try:
+            make_predictions(stock)
+        except Exception as e:
+            print(e)
+
 
 main()
