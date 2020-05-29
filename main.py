@@ -60,7 +60,7 @@ def make_predictions(stock):
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
 #    ax1.xaxis_date()
-    ax1.plot(viz_df.index, viz_df.Close)
+    ax1.plot(viz_df.index, viz_df.close)
     ax1.plot(viz_df.index, viz_df.yhat_scaled, linestyle=':')
     ax1.set_title('Actual Close (Orange) vs Close Forecast (Black)')
     ax1.set_ylabel('Closing Price in Dollars')
