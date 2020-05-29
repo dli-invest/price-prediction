@@ -69,8 +69,8 @@ def make_predictions(stock):
     L = ax1.legend() #get the legend
     # L.get_texts()[0].set_text('Actual Close') #change the legend text for 1st plot
     # L.get_texts()[1].set_text('Forecasted Close') #change the legend text for 2nd plot
-    
-    #plot using dataframe's plot function
+    plt.savefig(f'images/' + stock + '-prophet.png', bbox_inches='tight')
+    # plot using dataframe's plot function
     viz_df['Actual Close'] = viz_df['close']
     viz_df['Forecasted Close'] = viz_df['yhat_scaled']
     
