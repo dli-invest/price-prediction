@@ -77,6 +77,7 @@ def make_predictions(stock):
     viz_df[['Actual Close', 'Forecasted Close']].plot()
         
     plt.savefig(f'images/{{stock}}.png', bbox_inches='tight')
+    plt.close(fig='all')
 
 def main():
     with open('config.json') as json_file:
