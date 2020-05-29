@@ -10,7 +10,7 @@ plt.rcParams['figure.figsize']=(20,10)
 plt.style.use('ggplot')
 
 #function to get stock data
-def yahoo_stocks(symbol, start, end):
+def iex_stocks(symbol, start, end):
     return web.DataReader(symbol, 'iex', start, end)
 
 def get_historical_stock_price(stock):
@@ -20,8 +20,10 @@ def get_historical_stock_price(stock):
     startDate = datetime.datetime(2010, 1, 4)
    # date = datetime.datetime.now().date()
    # endDate = pd.to_datetime(date)
-    endDate = datetime.datetime(2017, 11, 27)
-    stockData = yahoo_stocks(stock, startDate, endDate)
+    endDate = datetime.datetime(2020, 5, 28)
+    stockData = iex_stocks(stock, startDate, endDate)
+    print(stockData.head())
+    print(stockData)
     return stockData
 
 def make_predictions(stock):
