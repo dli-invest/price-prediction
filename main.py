@@ -17,13 +17,12 @@ def get_historical_stock_price(stock):
     print ("Getting historical stock prices for stock ", stock)
     
     #get 7 year stock data for Apple
-    startDate = datetime.datetime(2010, 1, 4)
+    startDate = datetime.datetime.now() - datetime.timedelta(days=60)
    # date = datetime.datetime.now().date()
    # endDate = pd.to_datetime(date)
-    endDate = datetime.datetime(2020, 5, 28)
+    # endDate = datetime.datetime(2020, 5, 28)
+    endDate = datetime.datetime.now()
     stockData = iex_stocks(stock, startDate, endDate)
-    print(stockData.head())
-    print(stockData)
     return stockData
 
 def make_predictions(stock):
@@ -56,7 +55,7 @@ def make_predictions(stock):
     
     viz_df = df.join(forecast[['yhat', 'yhat_lower','yhat_upper']], how = 'outer')
     viz_df['yhat_scaled'] = np.exp(viz_df['yhat'])
-    
+    plt.savefig(f'images/' + stock + '-scaled.png', bbox_inches='tight')
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
 #    ax1.xaxis_date()
@@ -69,14 +68,14 @@ def make_predictions(stock):
     L = ax1.legend() #get the legend
     # L.get_texts()[0].set_text('Actual Close') #change the legend text for 1st plot
     # L.get_texts()[1].set_text('Forecasted Close') #change the legend text for 2nd plot
-    plt.savefig(f'images/' + stock + '-prophet.png', bbox_inches='tight')
+    plt.savefig(f'images/' + stock + '-plain.png', bbox_inches='tight')
     # plot using dataframe's plot function
     viz_df['Actual Close'] = viz_df['close']
     viz_df['Forecasted Close'] = viz_df['yhat_scaled']
     
     viz_df[['Actual Close', 'Forecasted Close']].plot()
         
-    plt.savefig(f'images/' + stock + '.png', bbox_inches='tight')
+    plt.savefig(f'images/' + stock + '-forecast.png', bbox_inches='tight')
     plt.close(fig='all')
 
 def main():
