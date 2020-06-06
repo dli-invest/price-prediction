@@ -1,0 +1,1 @@
+# Hold off on prophet image generation, probably not useful since I buy small caps

@@ -1,0 +1,22 @@
+# Don't expect to update this too often
+report:
+  - output_folder: reports/sample
+    stocks:
+      # Yfinance formatted stocks
+      # Might just read from config.json instead
+      - NEXCF
+      - ACB.TO
+      - BB.TO
+      - N.V
+      - APHA.TO
+      - TTT.CN
+      - HUT.TO
+      - HIVE.V
+      - AC.TO
+      - CVE.TO
+    # will check against types, if array use the weights, else use equal
+    weights: equal
+    risk:
+      # outputs Variance, Var, etc ...
+      # Too cheap to use cloud sql and might have multiple reports
+      output_csv: 'risk-sample.csv'
