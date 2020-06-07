@@ -33,7 +33,7 @@ jobs:
           mkdir $GH_PAGES_BRANCH
           cd $GH_PAGES_BRANCH
           git init
-          git remote add -t $GH_PAGES_BRANCH -f origin https://github.com/$GITHUB_REPOSITORY.git
+          git remote add -t $GH_PAGES_BRANCH -f origin https://github.com/${{github.repository}}.git
           git checkout $GH_PAGES_BRANCH
           ls
           cp -R sample/* $GH_PAGES_BRANCH/sample/$date/
