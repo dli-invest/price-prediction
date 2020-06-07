@@ -1,6 +1,11 @@
 # Don't expect to update this too often
-report:
-  - output_folder: reports/sample
+# Since Prophet seems unreliable for small caps, I'll probably generate a separate report
+# for other stocks
+# low priority at this point since the market is feeed
+reports:
+  - name: sample
+    # The other report will have its own start date
+    start_date: "2020-03-03"
     stocks:
       # Yfinance formatted stocks
       # Might just read from config.json instead
@@ -20,3 +25,9 @@ report:
       # outputs Variance, Var, etc ...
       # Too cheap to use cloud sql and might have multiple reports
       output_csv: 'risk-sample.csv'
+
+
+# Date when I started buying stocks
+# ref_date_1 = '2019-06-03'
+# Date around when I sold everything
+# ref_date_2 = '2020-03-03'

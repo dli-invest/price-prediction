@@ -3,7 +3,6 @@
 
 from stocks.util import get_prices
 
-import plotly.offline as py
 import plotly.graph_objs as go
 import plotly.io as pio
 from mlfinlab.online_portfolio_selection.benchmarks import BAH, BestStock, BCRP, CRP
@@ -16,6 +15,15 @@ def generate_performance(
     ):
     """
         Description: Generates performance charts for a given set of stocks
+
+        Parameters:
+            stocks: List of tickers compatiable with the yfinance module
+            start_date: start date in YYYY-MM-DD formatted date
+            end_date: end date in YYYY-MM-DD formatted date
+            title: Title in plotly
+            file_name: path to file name
+
+        Returns: Path to generated file
     """
     cad_df = get_prices(stocks, start_date, end_date)
     cad_df.columns = stocks
@@ -45,6 +53,18 @@ def generate_risk_stats(
         start_date="2020-03-01", 
         end_date="2020-05-30",
     ):
+    """
+        Description: Generates risk stats for a given set of stocks
+
+        Parameters:
+            stocks: List of tickers compatiable with the yfinance module
+            weights: List of weights, probably going to be evenly distributed
+            start_date: start date in YYYY-MM-DD formatted date
+            end_date: end date in YYYY-MM-DD formatted date
+            alpha: conference interval number see statistics
+
+        Returns: 4 numbers, Var, VaR, CVaR, CDaR
+    """
     assets_returns = get_prices(stocks, start_date, end_date)
     # Calculate empirical covariance of assets
     assets_cov = assets_returns.cov()
