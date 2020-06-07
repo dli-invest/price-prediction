@@ -21,7 +21,7 @@ jobs:
           pip install -r requirements.txt
           sudo wget https://github.com/plotly/orca/releases/download/v1.2.1/orca-1.2.1-x86_64.AppImage -O /usr/local/bin/orca
           sudo chmod +x /usr/local/bin/orca
-          sudo apt-get install xvfb libgtk2.0-0 libgconf-2-4 -y
+          sudo apt-get install xvfb libgtk2.0-0 libgconf-2-4 tree -y
       
       - name: Generate Report
         run:  python gen_report.py
@@ -32,6 +32,9 @@ jobs:
           name: report
           path: report
       - name: Update GH_PAGES
+        # Todo split this into updating the repo
+        # And commiting it later
+        # Need to autogenerate index.html directory
         run: |
           ls report
           date=$(date '+%Y-%m-%d')
@@ -45,6 +48,7 @@ jobs:
           mkdir -p sample/$date
           cp -R ../sample/* sample/$date
           ls sample/$date
+          tree -H '.' -L 4 --noreport --charset utf-8 > index.html
           git add .
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action $date"
