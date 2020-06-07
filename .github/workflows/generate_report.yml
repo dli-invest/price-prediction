@@ -10,9 +10,13 @@ jobs:
   make_report:
     name: Generate Report
     runs-on: ubuntu-latest
-    container: python:3.8.3-alpine3.10
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@master
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.7' # Semantic version range syntax or exact version of a Python version
+          architecture: 'x64' # Optional - x64 or x86, defaults to x64
       - run: |
           pip install -r requirements.txt
           python gen_report.py
