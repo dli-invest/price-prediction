@@ -49,6 +49,11 @@ jobs:
           git add .
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action $date"
-          git commit -m "Add changes" -a
-          git push
+          git commit -m "Add changes $date" -a
+      - name: Push changes
+          uses: ad-m/github-push-action@master
+          with:
+            directory: report
+            branch: $GH_PAGES_BRANCH
+            github_token: ${{ secrets.GITHUB_TOKEN }}
         
