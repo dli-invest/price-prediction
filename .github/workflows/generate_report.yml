@@ -1,0 +1,38 @@
+# Don't want to burn my private minutes at this point
+on: tag
+
+env:
+  IEX_API_KEY: ${{ secrets.IEX_API_KEY }}
+  GH_PAGES_BRANCH: gh-pages
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  make_report:
+    name: Generate Report
+    runs-on: ubuntu-latest
+    container: python:3.8.3-alpine3.10
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          pip install -r requirements.txt
+          python gen_report.py
+        name: Upload Stocks folder
+      - uses: actions/upload-artifact@v1
+        with:
+          name: stocks
+          path: stocks
+      - name: Update GH_PAGES
+        run: |
+          date=$(date '+%Y-%m-%d')
+          echo $(date '+%Y-%m-%d')
+          cd stocks
+          mkdir $GH_PAGES_BRANCH
+          cd $GH_PAGES_BRANCH
+          git init
+          git remote add -t $GH_PAGES_BRANCH -f origin https://github.com/$GITHUB_REPOSITORY.git
+          git checkout $GH_PAGES_BRANCH
+          ls
+          cp -R sample/* $GH_PAGES_BRANCH/sample/$date/
+          cd $GH_PAGES_BRANCH/sample/$date/
+          ls
+        
