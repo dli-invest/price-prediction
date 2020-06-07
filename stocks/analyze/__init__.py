@@ -1,1 +1,1 @@
-from stocks.analyze.main import generate_performance, generate_risk_stats
+from stocks.analyze.main import generate_performance, generate_risk_stats, generate_estimated_returns

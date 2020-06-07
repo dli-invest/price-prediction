@@ -7,7 +7,7 @@ import glob
 from jinja2 import Template
 from datetime import date, datetime
 from stocks.util import get_config
-from stocks.report import make_risk_metrics, make_performance_plot
+from stocks.report import make_risk_metrics, make_performance_plot, make_estimated_returns
 
 def main(args):
     end_date = str(date.today())
@@ -33,7 +33,7 @@ def main(args):
             risk_metrics = make_risk_metrics(stocks, weights, start_date, end_date)
         # Add Var, VaR, CVaR, CDaR
         options["RISK_METRICS"] = risk_metrics
-
+        options["ESTIMATED_RETURNS"] = make_estimated_returns(stocks, start_date, end_date)
         performance_images = []
         image_name = f"{start_date}_{end_date}_basic.png"
         plot_made = make_performance_plot(

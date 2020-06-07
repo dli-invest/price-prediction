@@ -1,1 +1,1 @@
-from stocks.report.gen_metrics import make_risk_metrics, make_performance_plot
+from stocks.report.generate_stats import make_risk_metrics, make_performance_plot, make_estimated_returns

@@ -88,3 +88,38 @@ def generate_risk_stats(
     print(CVaR)
     print(CDaR)
     return Var, VaR, CVaR, CDaR
+
+from mlfinlab.portfolio_optimization import ReturnsEstimation
+from stocks.util.df_styling import apply_returns_styling
+def generate_estimated_returns(
+        stocks, 
+        start_date="2020-03-01", 
+        end_date="2020-05-30",
+    ):
+    """
+        Description: Generates formatted html tables of estimated returns
+
+        Parameters:
+            stocks: List of tickers compatiable with the yfinance module
+            start_date: start date in YYYY-MM-DD formatted date
+            end_date: end date in YYYY-MM-DD formatted date
+
+        Returns:
+            Styler object for annualised mean historical returns for daily data
+            Styler object for exponentially-weighted annualized mean 
+    """
+
+    asset_prices = get_prices(stocks, start_date, end_date)
+    ret_est = ReturnsEstimation()
+    # Calculate annualised mean historical returns for daily data
+    assets_annual_returns = ret_est.calculate_mean_historical_returns(asset_prices, frequency=252)
+
+    assets_annual_returns_df = assets_annual_returns.to_frame(name=f"Mean Returns from {start_date} to {end_date}")
+    # Calculate exponentially-weighted annualized mean of historical returns for daily data and span of 200
+    assets_exp_annual_returns = ret_est.calculate_exponential_historical_returns(asset_prices,
+                                                                                frequency=252,
+                                                                                span=200)
+
+    assets_exp_annual_returns_df = assets_exp_annual_returns.to_frame(name=f"exponentially-weighted annualized  from {start_date} to {end_date}")
+    
+    return [apply_returns_styling(assets_annual_returns_df), apply_returns_styling(assets_exp_annual_returns_df)]

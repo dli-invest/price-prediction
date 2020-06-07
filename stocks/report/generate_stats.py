@@ -2,7 +2,7 @@
 # without having mlfinlab installed locally
 import os
 try:
-    from stocks.analyze import generate_risk_stats, generate_performance
+    from stocks.analyze import generate_risk_stats, generate_performance, generate_estimated_returns
     mlfinlabExists = True
 except ImportError as e:
     print(e)
@@ -33,25 +33,25 @@ def make_risk_metrics(
           "value": Var,
           "name": "Variance",
           "description": "This measure can be used to compare portfolios" \
-            "based on estimations of the volatility of returns."
+            " based on estimations of the volatility of returns."
         },
         {
           "value": VaR,
           "name": "Value at Risk",
           "description": "This measure can be used to compare portfolios" \
-            "based on the amount of investments that can be lost in the next observation, assuming the returns for assets follow a multivariate normal distribution."
+            " based on the amount of investments that can be lost in the next observation, assuming the returns for assets follow a multivariate normal distribution."
         },
         {
           "value": CVaR,
           "name": "Expected Shortfall",
           "description": "This measure can be used to compare portfolios" \
-            "based on the average amount of investments that can be lost in a worst-case scenario, assuming the returns for assets follow a multivariate normal distribution."
+            " based on the average amount of investments that can be lost in a worst-case scenario, assuming the returns for assets follow a multivariate normal distribution."
         },
         {
           "value": CDaR,
           "name": "Conditional Drawdown at Risk",
           "description": "This measure can be used to compare portfolios"
-            "based on the average amount of a portfolio drawdown in a worst-case scenario, assuming the drawdowns follow a normal distribution."
+            " based on the average amount of a portfolio drawdown in a worst-case scenario, assuming the drawdowns follow a normal distribution."
         }
     ]
 
@@ -74,3 +74,12 @@ def make_performance_plot(
         file_name=file_name
       )
     return None
+
+def make_estimated_returns(
+        stocks, 
+        start_date="2020-03-01", 
+        end_date="2020-05-30",
+    ):
+    if mlfinlabExists:
+        return generate_estimated_returns(stocks, start_date, end_date)
+    return [None, None]
