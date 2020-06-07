@@ -46,6 +46,6 @@ jobs:
           ls
           mkdir -p sample/$date
           ls 
-          cp -R ../sample/* $GH_PAGES_BRANCH/sample/$date/
+          cp -R ../sample/* sample/$date/*
           ls sample/$date
         
