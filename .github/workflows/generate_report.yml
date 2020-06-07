@@ -21,8 +21,9 @@ jobs:
       
       - name: Generate Report
         run:  python gen_report.py
-        name: Upload Stocks folder
+
       - uses: actions/upload-artifact@v1
+        name: Upload Stocks folder
         with:
           name: stocks
           path: stocks
