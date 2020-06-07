@@ -17,9 +17,10 @@ jobs:
         with:
           python-version: '3.7' # Semantic version range syntax or exact version of a Python version
           architecture: 'x64' # Optional - x64 or x86, defaults to x64
-      - run: |
-          pip install -r requirements.txt
-          python gen_report.py
+      - run: pip install -r requirements.txt
+      
+      - name: Generate Report
+        run:  python gen_report.py
         name: Upload Stocks folder
       - uses: actions/upload-artifact@v1
         with:

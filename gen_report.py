@@ -40,8 +40,11 @@ def main(args):
             end_date=end_date,
             file_name=f"{output_folder}/${image_name}"
         )
+        print(plot_made)
         if plot_made is not None:
             performance_images.append(image_name)
+        else:
+            print("PLOT NOT MADE")
         options["PERFORMANCE_IMAGES"] = performance_images
         renderer_template = template.render(**options)
         # Make folder even if exists
