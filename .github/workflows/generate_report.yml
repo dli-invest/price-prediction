@@ -44,7 +44,7 @@ jobs:
           git remote add -t $GH_PAGES_BRANCH -f origin https://github.com/${{github.repository}}.git
           git checkout $GH_PAGES_BRANCH
           sudo mkdir -p sample/$date
-          cp -R ../sample/* sample/$date
+          sudo cp -R ../sample/* sample/$date
           ls sample/$date
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action $date"
