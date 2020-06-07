@@ -23,6 +23,18 @@ jobs:
           sudo chmod +x /usr/local/bin/orca
           sudo apt-get install xvfb libgtk2.0-0 libgconf-2-4 tree -y
       
+      - name: Initialize GH_PAGES Report
+        run: |
+          date=$(date '+%Y-%m-%d')
+          echo $(date '+%Y-%m-%d')
+          cd report
+          mkdir -p $GH_PAGES_BRANCH
+          cd $GH_PAGES_BRANCH
+          git init
+          git remote add -t $GH_PAGES_BRANCH -f origin https://${{github.repository_owner}}:${{github.token}}@github.com/${{github.repository}}.git
+          git checkout $GH_PAGES_BRANCH
+          mkdir -p sample/$date
+          cd ../../
       - name: Generate Report
         run:  python gen_report.py
 
@@ -35,17 +47,15 @@ jobs:
         # Todo split this into updating the repo
         # And commiting it later
         # Need to autogenerate index.html directory
+        # Make gh-pages branch
+        # checkout git branch only on CI
+        # make directory for current report name
         run: |
           ls report
           date=$(date '+%Y-%m-%d')
           echo $(date '+%Y-%m-%d')
           cd report
-          mkdir $GH_PAGES_BRANCH
           cd $GH_PAGES_BRANCH
-          git init
-          git remote add -t $GH_PAGES_BRANCH -f origin https://${{github.repository_owner}}:${{github.token}}@github.com/${{github.repository}}.git
-          git checkout $GH_PAGES_BRANCH
-          mkdir -p sample/$date
           cp -R ../sample/* sample/$date
           ls sample/$date
           tree -H '.' -L 4 --noreport --charset utf-8 > index.html

@@ -13,10 +13,10 @@
     <p>This is where some content would go.</p>
     <div class="row">
       {% for metric in RISK_METRICS %}
-        <div class="col-3 col">
+        <div class="col-6 col">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">{{metric["value"]}}</h4>
+              <h4 class="card-title">{{metric["value"]|round(2)}}</h4>
               <h5 class="card-subtitle">{{metric["name"]}}</h5>
               <p class="card-text">{{metric["description"]}}</p>
             </div>
