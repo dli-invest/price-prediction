@@ -34,6 +34,8 @@ def main(args):
         output_folder = f"{args.output}/{report_name}"
         performance_images = []
         image_name = f"{start_date}_{end_date}_basic.png"
+        # Make folder even if exists
+        pathlib.Path(output_folder).mkdir(parents=True, exist_ok=True) 
         plot_made = make_performance_plot(
             stocks,
             start_date=start_date,
@@ -47,8 +49,6 @@ def main(args):
             print("PLOT NOT MADE")
         options["PERFORMANCE_IMAGES"] = performance_images
         renderer_template = template.render(**options)
-        # Make folder even if exists
-        pathlib.Path(output_folder).mkdir(parents=True, exist_ok=True) 
         with open(f"{output_folder}/index.html", "w", errors='ignore') as f:
             f.write(renderer_template)
 
