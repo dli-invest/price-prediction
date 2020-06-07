@@ -2,7 +2,9 @@ def color_returns(val):
     """
     Takes a scalar and returns red for significantly negative returns,
     green for signficantly positive returns and black otherwise.
-    """
+    """ 
+    if isinstance(val, str):
+      return None
     if val < -0.1:
       color = 'red'
     elif val > 0.1:
