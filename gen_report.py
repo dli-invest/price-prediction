@@ -11,7 +11,6 @@ from stocks.report import make_risk_metrics, make_performance_plot
 
 def main(args):
     end_date = str(date.today())
-
     for report_cfg_file in glob.glob("stocks/cfg/*.yml"):
         report_cfg = get_config(report_cfg_file)
         options = dict(Version="1.0.0", CurrDate=end_date)
@@ -19,19 +18,22 @@ def main(args):
         weights = report_cfg["weights"]
         start_date = report_cfg["start_date"]
         report_name = report_cfg["name"]
+        
+        # Relative paths to performance images,
+        # images are in the same directory as index.html
+        output_folder = f"{args.output}/{report_name}"
+        # Make folder even if exists
+        pathlib.Path(output_folder).mkdir(parents=True, exist_ok=True)
         if isinstance(weights, str):
             # set equal list based on stock length
             # TODO add more types later
             weights = [1.00 / len(stocks)] * len(stocks)
             risk_metrics = make_risk_metrics(stocks, weights, start_date, end_date)
+        else:
+            risk_metrics = make_risk_metrics(stocks, weights, start_date, end_date)
         # Add Var, VaR, CVaR, CDaR
         options["RISK_METRICS"] = risk_metrics
 
-        # Relative paths to performance images,
-        # images are in the same directory as index.html
-        output_folder = f"{args.output}/{report_name}"
-        # Make folder even if exists
-        pathlib.Path(output_folder).mkdir(parents=True, exist_ok=True) 
         performance_images = []
         image_name = f"{start_date}_{end_date}_basic.png"
         plot_made = make_performance_plot(

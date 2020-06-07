@@ -13,7 +13,7 @@ Periodic publishing for online portoflio selection and risk management for curre
 
 **06/07/2020**
 * ~~Limit to 2 decimals make columns 6 instead of 3~~
-* Append data to hardcoded csv
+* Append data to hardcoded csv (won't do, stocks will change too quickly)
 
 #### SubReports
 

@@ -1,5 +1,6 @@
 # Wrapper class so I can generate reports
 # without having mlfinlab installed locally
+import os
 try:
     from stocks.analyze import generate_risk_stats, generate_performance
     mlfinlabExists = True
@@ -7,7 +8,12 @@ except ImportError as e:
     print(e)
     mlfinlabExists = False
 
-def make_risk_metrics(stocks, weights, start_date, end_date):
+def make_risk_metrics(
+      stocks,
+      weights,
+      start_date,
+      end_date
+    ):
     """
       Parameters:
           stocks: List of tickers compatiable with the yfinance module
