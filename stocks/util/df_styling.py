@@ -4,7 +4,7 @@ def color_returns(val):
     green for signficantly positive returns and black otherwise.
     """ 
     if isinstance(val, str):
-      return None
+      return ''
     if val < -0.1:
       color = 'red'
     elif val > 0.1:
