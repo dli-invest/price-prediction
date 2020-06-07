@@ -1,5 +1,8 @@
 # Don't want to burn my private minutes at this point
-on: tag
+on
+  push:
+    tags:        
+      - v1  
 
 env:
   IEX_API_KEY: ${{ secrets.IEX_API_KEY }}
