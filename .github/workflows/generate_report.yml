@@ -28,12 +28,13 @@ jobs:
         run:  python gen_report.py
 
       - uses: actions/upload-artifact@v1
-        name: Upload Stocks folder
+        name: Upload Report folder
         with:
           name: report
           path: report
       - name: Update GH_PAGES
         run: |
+          ls report
           date=$(date '+%Y-%m-%d')
           echo $(date '+%Y-%m-%d')
           cd report
@@ -43,7 +44,7 @@ jobs:
           git remote add -t $GH_PAGES_BRANCH -f origin https://github.com/${{github.repository}}.git
           git checkout $GH_PAGES_BRANCH
           ls
-          cp -R sample/* $GH_PAGES_BRANCH/sample/$date/
+          cp -R ./sample/* $GH_PAGES_BRANCH/sample/$date/
           cd $GH_PAGES_BRANCH/sample/$date/
           ls
         

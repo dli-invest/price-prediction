@@ -40,7 +40,7 @@ def main(args):
             stocks,
             start_date=start_date,
             end_date=end_date,
-            file_name=f"{output_folder}/${image_name}"
+            file_name=f"{output_folder}/{image_name}"
         )
         print(plot_made)
         if plot_made is not None:
