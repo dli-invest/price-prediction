@@ -46,6 +46,6 @@ jobs:
           ls
           mkdir -p sample/$date
           ls 
-          cp -R ../sample/* sample/$date/*
+          cp -R ../sample/* sample/$date
           ls sample/$date
         
