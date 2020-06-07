@@ -4,7 +4,6 @@ on: push
 env:
   IEX_API_KEY: ${{ secrets.IEX_API_KEY }}
   GH_PAGES_BRANCH: gh-pages
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   make_report:
@@ -41,7 +40,7 @@ jobs:
           mkdir $GH_PAGES_BRANCH
           cd $GH_PAGES_BRANCH
           git init
-          git remote add -t $GH_PAGES_BRANCH -f origin https://github.com/${{github.repository}}.git
+          git remote add -t $GH_PAGES_BRANCH -f origin https://${{github.repository_owner}}:${{github.token}}@github.com/${{github.repository}}.git
           git checkout $GH_PAGES_BRANCH
           mkdir -p sample/$date
           cp -R ../sample/* sample/$date
@@ -50,10 +49,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action $date"
           git commit -m "Add changes $date" -a
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          directory: report
-          branch: $GH_PAGES_BRANCH
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git push
         
