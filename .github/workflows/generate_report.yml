@@ -46,6 +46,7 @@ jobs:
           mkdir -p sample/$date
           cp -R ../sample/* sample/$date
           ls sample/$date
+          git add .
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action $date"
           git commit -m "Add changes" -a
