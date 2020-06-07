@@ -30,7 +30,7 @@ jobs:
         run: |
           date=$(date '+%Y-%m-%d')
           echo $(date '+%Y-%m-%d')
-          cd stocks
+          cd report
           mkdir $GH_PAGES_BRANCH
           cd $GH_PAGES_BRANCH
           git init
