@@ -19,7 +19,7 @@ def apply_returns_styling(
       df,
       className='class="table-alternating"',
       caption="Returns",
-      style_columns=[]
+      columns=[]
     ):
     """
       Description: generates a styled returns html table 
@@ -28,6 +28,7 @@ def apply_returns_styling(
           df: Pandas Dataframe
           className: class attribute of html table
           caption: Table caption
+          columns: columns that styling is applied to
       Returns:
           styled html table
     """
@@ -35,5 +36,5 @@ def apply_returns_styling(
     return valid_df.style.\
       set_table_attributes(className).\
       set_caption(caption).\
-      applymap(color_returns, subset=pd.IndexSlice[:, columns).\
+      applymap(color_returns, subset=pd.IndexSlice[:, columns]).\
       render()
