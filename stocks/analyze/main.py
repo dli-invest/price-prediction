@@ -113,13 +113,16 @@ def generate_estimated_returns(
     ret_est = ReturnsEstimation()
     # Calculate annualised mean historical returns for daily data
     assets_annual_returns = ret_est.calculate_mean_historical_returns(asset_prices, frequency=252)
-
-    assets_annual_returns_df = assets_annual_returns.to_frame(name=f"Mean Returns from {start_date} to {end_date}")
+    annual_column_name = f"Mean Returns from {start_date} to {end_date}"
+    assets_annual_returns_df = assets_annual_returns.to_frame(name=annual_column_name)
     # Calculate exponentially-weighted annualized mean of historical returns for daily data and span of 200
     assets_exp_annual_returns = ret_est.calculate_exponential_historical_returns(asset_prices,
                                                                                 frequency=252,
                                                                                 span=200)
-
-    assets_exp_annual_returns_df = assets_exp_annual_returns.to_frame(name=f"exponentially-weighted annualized  from {start_date} to {end_date}")
+    assets_exp_annual_name = f"exponentially-weighted annualized from {start_date} to {end_date}"
+    assets_exp_annual_returns_df = assets_exp_annual_returns.to_frame(name=assets_exp_annual_name)
     
-    return [apply_returns_styling(assets_annual_returns_df), apply_returns_styling(assets_exp_annual_returns_df)]
+    return [
+        apply_returns_styling(assets_annual_returns_df, columns=[annual_column_name]),
+        apply_returns_styling(assets_exp_annual_returns_df, columns=[assets_exp_annual_name])
+    ]

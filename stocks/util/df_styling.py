@@ -1,3 +1,4 @@
+import pandas as pd
 def color_returns(val):
     """
     Takes a scalar and returns red for significantly negative returns,
@@ -14,7 +15,12 @@ def color_returns(val):
     return 'color: %s' % color
 
 
-def apply_returns_styling(df, className='class="table-alternating"', caption="Returns"):
+def apply_returns_styling(
+      df,
+      className='class="table-alternating"',
+      caption="Returns",
+      style_columns=[]
+    ):
     """
       Description: generates a styled returns html table 
 
@@ -25,9 +31,9 @@ def apply_returns_styling(df, className='class="table-alternating"', caption="Re
       Returns:
           styled html table
     """
-    valid_df = df.reset_index()
-    return valid_df.style\
-      .set_table_attributes(className)\
-      .set_caption(caption)\
-      .applymap(color_returns)\
-      .render()
+    valid_df = df.reset_index(drop=False)
+    return valid_df.style.\
+      set_table_attributes(className).\
+      set_caption(caption).\
+      applymap(color_returns, subset=pd.IndexSlice[:, columns).\
+      render()
