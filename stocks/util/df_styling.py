@@ -23,7 +23,8 @@ def apply_returns_styling(df, className='class="table-alternating"', caption="Re
       Returns:
           styled html table
     """
-    return df.style\
+    valid_df = df.reset_index()
+    return valid_df.style\
       .set_table_attributes(className)\
       .set_caption(caption)\
       .applymap(color_returns)\
