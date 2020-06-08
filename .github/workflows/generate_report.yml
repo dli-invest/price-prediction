@@ -1,5 +1,8 @@
 # Don't want to burn my private minutes at this point
-on: push
+on:
+  push:
+    branches-ignore:
+      - 'testing'
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '30 13 * * 1-5'
