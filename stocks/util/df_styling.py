@@ -32,6 +32,7 @@ def apply_returns_styling(
       Returns:
           styled html table
     """
+    print(df)
     valid_df = df.reset_index(drop=False)
     return valid_df.style.\
       set_table_attributes(className).\
