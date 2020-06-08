@@ -11,6 +11,7 @@ def get_prices(stocks, start_date="2020-03-01", end_date="2020-05-30"):
     data = data.dropna(axis='columns', how='all')
 
     prices_df = pd.concat([data[ticker]["Close"] for ticker in stocks], axis=1)
+    prices_df.columns = stocks
     return prices_df
 
 # Rename this later
