@@ -1,5 +1,8 @@
 # Don't want to burn my private minutes at this point
 on: push
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30 13 * * 1-5'
 
 env:
   IEX_API_KEY: ${{ secrets.IEX_API_KEY }}
