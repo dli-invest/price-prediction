@@ -45,6 +45,7 @@ jobs:
           name: report
           path: report
       - name: Update GH_PAGES
+        if: endsWith(github.ref, '/master')
         # Todo split this into updating the repo
         # And commiting it later
         # Need to autogenerate index.html directory
