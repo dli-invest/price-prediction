@@ -47,7 +47,7 @@ def main(args):
         if plot_made is not None:
             performance_images.append(image_name)
         else:
-            print(f"PLOT NOT MADE for {image_name}")
+            print(f"PLOT NOT MADE for {image_name} for {report_name}")
         options["PERFORMANCE_IMAGES"] = performance_images
         with open(args.template) as file_:
             template = Template(file_.read())
@@ -62,7 +62,10 @@ def main(args):
         # Any files in the output folder, if I need nested files in folders
         # use something else
         for report_file in glob.glob(f"{output_folder}/*"):
-            shutil.move(report_file, gh_report_folder)
+            try:
+                shutil.move(report_file, gh_report_folder)
+            except shutil.Error as e:
+                print(e)
         # Could make into another function
     
 if __name__ == "__main__":
