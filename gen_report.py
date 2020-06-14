@@ -4,6 +4,7 @@ import sys
 import argparse as ap
 import pathlib
 import glob
+import shutil
 from jinja2 import Template
 from datetime import date, datetime
 from stocks.util import get_config
@@ -11,6 +12,7 @@ from stocks.report import make_risk_metrics, make_performance_plot, make_estimat
 
 def main(args):
     end_date = str(date.today())
+    gh_pages_name = 'gh-pages'
     for report_cfg_file in glob.glob("stocks/cfg/*.yml"):
         report_cfg = get_config(report_cfg_file)
         options = dict(Version="1.0.0", CurrDate=end_date)
@@ -22,8 +24,8 @@ def main(args):
         # Relative paths to performance images,
         # images are in the same directory as index.html
         output_folder = f"{args.output}/{report_name}"
-        # Make folder even if exists
         pathlib.Path(output_folder).mkdir(parents=True, exist_ok=True)
+
         if isinstance(weights, str):
             # set equal list based on stock length
             # TODO add more types later
@@ -53,6 +55,15 @@ def main(args):
         with open(f"{output_folder}/index.html", "w", errors='ignore') as f:
             f.write(renderer_template)
 
+        # Attempt to move the folder
+        # Make in gh pages folder even if exists
+        gh_report_folder = f"{args.output}/{gh_pages_name}/{report_name}/{end_date}"
+        pathlib.Path(gh_report_folder).mkdir(parents=True, exist_ok=True)
+        # Any files in the output folder, if I need nested files in folders
+        # use something else
+        for report_file in glob.glob(f"{output_folder}/*"):
+            shutil.move(report_file, gh_report_folder)
+        # Could make into another function
     
 if __name__ == "__main__":
     assert sys.version_info >= (3, 6)

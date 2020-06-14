@@ -50,6 +50,12 @@ jobs:
         with:
           name: report
           path: report
+
+      - name: Check Report Folder
+        run: |
+          date=$(date '+%Y-%m-%d')
+          ls report/$GH_PAGES_BRANCH/sample/$date
+        
       - name: Update GH_PAGES
         if: endsWith(github.ref, '/master')
         # Todo split this into updating the repo
@@ -59,13 +65,9 @@ jobs:
         # checkout git branch only on CI
         # make directory for current report name
         run: |
-          ls report
           date=$(date '+%Y-%m-%d')
           echo $(date '+%Y-%m-%d')
-          cd report
-          cd $GH_PAGES_BRANCH
-          cp -R ../sample/* sample/$date
-          ls sample/$date
+          cd report/$GH_PAGES_BRANCH
           tree -H '.' -L 4 --noreport --charset utf-8 > index.html
           git add .
           git config --local user.email "action@github.com"
