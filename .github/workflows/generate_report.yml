@@ -64,6 +64,7 @@ jobs:
         # Make gh-pages branch
         # checkout git branch only on CI
         # make directory for current report name
+        # If no commits, just runs anyway
         run: |
           date=$(date '+%Y-%m-%d')
           echo $(date '+%Y-%m-%d')
@@ -72,6 +73,6 @@ jobs:
           git add .
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action $date"
-          git commit -m "Add changes $date" -a
-          git push
+          git commit -m "Add changes $date" -a || true
+          git push || true
         

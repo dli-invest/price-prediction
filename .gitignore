@@ -2,3 +2,5 @@ SECRETS.txt
 __pycache__
 
 report/sample
+report/gh-pages
+report/second-dip
