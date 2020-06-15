@@ -8,7 +8,9 @@ import shutil
 from jinja2 import Template
 from datetime import date, datetime
 from stocks.util import get_config
-from stocks.report import make_risk_metrics, make_performance_plot, make_estimated_returns
+from stocks.report import make_risk_metrics, \
+    make_performance_plot, make_estimated_returns, \
+    make_portfolio_allocations
 
 def main(args):
     end_date = str(date.today())
@@ -49,6 +51,20 @@ def main(args):
         else:
             print(f"PLOT NOT MADE for {image_name} for {report_name}")
         options["PERFORMANCE_IMAGES"] = performance_images
+
+        # Adding weights optimization
+        if "portfolio_opt" in report_cfg:
+            portfolio_opt = report_cfg["portfolio_opt"]
+            # Get prices for stocks, if I ever get to rebuilding this
+            # pass in stock prices once, not a huge deal, not time sensitive issue
+            portfolio_allocations = make_portfolio_allocations(
+                stocks,
+                portfolio_opt,
+                start_date,
+                end_date
+            )
+            options["PORTFOLIO_ALLOCATIONS"] = portfolio_allocations
+            # iterate across the portfolio
         with open(args.template) as file_:
             template = Template(file_.read())
         renderer_template = template.render(**options)

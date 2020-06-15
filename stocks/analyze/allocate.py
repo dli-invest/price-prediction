@@ -126,3 +126,47 @@ def generate_estimated_returns(
         apply_returns_styling(assets_annual_returns_df, columns=[annual_column_name]),
         apply_returns_styling(assets_exp_annual_returns_df, columns=[assets_exp_annual_name])
     ]
+
+from mlfinlab.portfolio_optimization.mean_variance import MeanVarianceOptimisation
+
+def generate_portfolio_allocations(
+        stocks,
+        portfolio_opt,
+        start_date, 
+        end_date,
+        *other_settings
+    ):
+    """
+        Description: Generates risk stats for a given set of stocks
+
+        Parameters:
+            stocks: List of tickers compatible with the yfinance module
+            portfolio_opt: List of portfolio
+            start_date: start date in YYYY-MM-DD formatted date
+            end_date: end date in YYYY-MM-DD formatted date
+            *other_settings: unimportant settings in https://mlfinlab.readthedocs.io/en/latest/portfolio_optimisation/mean_variance.html
+
+        Returns: an list of dictionaries
+    """
+    asset_prices = get_prices(stocks, start_date, end_date)
+    # Calculate empirical covariance of assets
+    portfolio_data = []
+    for sol_settings in portfolio_opt:
+        mvo = MeanVarianceOptimisation()
+        solution = sol_settings['name']
+        description = sol_settings['description']
+        mvo.allocate(asset_names=asset_prices.columns, asset_prices=asset_prices,
+                solution=solution, *other_settings)
+        ivp_weights = mvo.weights.sort_values(by=0, ascending=False, axis=1)
+        weights_html = ivp_weights.to_html(classes='table-alternating')
+        portfolio_data.append(
+            dict(
+                name=solution,
+                weights=weights_html,
+                description=description
+            )
+        )
+
+    # TODO return 2 parameters, one is the pathname to the plot, the rest is a
+    # list of portfolio allocations
+    return portfolio_data

@@ -11,12 +11,30 @@ stocks:
   - TTT.CN
   - HIVE.V
 # will check against types, if array use the weights, else use equal
-weights: equal
+weights: 
+  - 0.4
+  - 0.05
+  - 0.2
+  - 0.05
+  - 0.2
 risk:
   # outputs Variance, Var, etc ...
   # Too cheap to use cloud sql and might have multiple 
   # Dynambo DB an option
   output_csv: 'risk-sample.csv'
+portfolio_opt:
+  # options for various portfolio optimization 
+  - name: max_sharpe
+    description: |
+      The Sharpe ratio was developed by Nobel laureate William F. Sharpe
+      and is used to help investors understand the return of an
+      investment compared to its risk. 
+      For this solution, the objective is (as the name suggests)
+      to maximise the Sharpe Ratio of your portfolio.
+  - name: max_diversification
+    description: |
+      Maximum diversification portfolio tries to diversify
+      the holdings across as many assets as possible.
 
 
 # Date when I started buying stocks
