@@ -29,6 +29,13 @@
         {{ RETURNS|safe }}
       {% endfor %}
     </div>
+    <div class="row">
+      {% for ALLOCATION in PORTFOLIO_ALLOCATIONS %}
+        <h3> {{ ALLOCATION['name']|safe }}</h3>
+        <h4> {{ ALLOCATION['description']|safe }}</h4>
+        {{ ALLOCATION['weights']|safe }}
+      {% endfor %}
+    </div>
     {% for image_path in PERFORMANCE_IMAGES %}
       <img src="{{image_path}}" alt="{{image_path}}">
     {% endfor %}

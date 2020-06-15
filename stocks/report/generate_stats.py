@@ -2,7 +2,9 @@
 # without having mlfinlab installed locally
 import os
 try:
-    from stocks.analyze import generate_risk_stats, generate_performance, generate_estimated_returns
+    from stocks.analyze import generate_risk_stats,\
+      generate_performance, generate_estimated_returns, \
+      generate_portfolio_allocations
     mlfinlabExists = True
 except ImportError as e:
     print(e)
@@ -83,3 +85,20 @@ def make_estimated_returns(
     if mlfinlabExists:
         return generate_estimated_returns(stocks, start_date, end_date)
     return [None, None]
+
+def make_portfolio_allocations(
+        stocks,
+        portfolio_opt,
+        start_date="2020-03-01", 
+        end_date="2020-05-30",
+        *other_settings
+    ):
+    if mlfinlabExists:
+        return generate_portfolio_allocations(
+          stocks, 
+          portfolio_opt,
+          start_date,
+          end_date,
+          *other_settings
+        )
+    return []
