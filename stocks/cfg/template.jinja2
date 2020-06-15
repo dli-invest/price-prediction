@@ -33,7 +33,7 @@
       {% for ALLOCATION in PORTFOLIO_ALLOCATIONS %}
         <h3> {{ ALLOCATION['name']|safe }}</h3>
         <h4> {{ ALLOCATION['description']|safe }}</h4>
-        {{ ALLOCATION['value']|safe }}
+        {{ ALLOCATION['weights']|safe }}
       {% endfor %}
     </div>
     {% for image_path in PERFORMANCE_IMAGES %}
