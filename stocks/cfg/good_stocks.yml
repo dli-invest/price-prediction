@@ -10,13 +10,16 @@ stocks:
   - APHA.TO
   - TTT.CN
   - HIVE.V
+  - IP.CN
+  - QUIS.V
 # will check against types, if array use the weights, else use equal
 weights: 
-  - 0.4
   - 0.05
-  - 0.2
+  - 0.025
   - 0.05
-  - 0.2
+  - 0.025
+  - 0.8
+  - 0.1
 risk:
   # outputs Variance, Var, etc ...
   # Too cheap to use cloud sql and might have multiple 
