@@ -1,22 +1,22 @@
 
-name: second-dip
+name: current-holdings
 # The other report will have its own start date
-start_date: "2019-09-03"
+start_date: "2020-01-01"
 stocks:
   # Yfinance formatted stocks
   # Might just read from config.json instead
   - NEXCF
-  - N.V
-  - APHA.TO
-  - TTT.CN
-  - HIVE.V
+  - YDX.V
+  - VSBY.CN
+  - MTRX.V
+  - IP.CN
 # will check against types, if array use the weights, else use equal
 weights: 
-  - 0.4
-  - 0.05
-  - 0.2
-  - 0.05
-  - 0.2
+  - 0.125
+  - 0.026
+  - 0.177
+  - 0.045
+  - 0.626
 risk:
   # outputs Variance, Var, etc ...
   # Too cheap to use cloud sql and might have multiple 
