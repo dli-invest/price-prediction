@@ -1,7 +1,7 @@
 
 name: sample
 # The other report will have its own start date
-start_date: "2020-03-03"
+start_date: "2020-06-03"
 stocks:
   # Yfinance formatted stocks
   # Might just read from config.json instead

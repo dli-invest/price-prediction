@@ -42,7 +42,11 @@ def generate_performance(
     fig.add_trace(go.Scatter(x=idx, y=cad_crp.portfolio_return['Returns'], name="CRP"))
     fig.add_trace(go.Scatter(x=idx, y=cad_bcrp.portfolio_return['Returns'], name="BCRP"))
     fig.update_layout(title=title, xaxis_title='Date', yaxis_title='Relative Returns')
-    pio.write_image(fig, file_name, scale=3)
+    try:
+        pio.write_image(fig, file_name, scale=3)
+    except Exception as e:
+        print(e)
+        return ''
     return file_name
 
 from mlfinlab.portfolio_optimization import RiskMetrics
@@ -71,7 +75,7 @@ def generate_risk_stats(
 
     # Class that contains needed functions
     risk_met = RiskMetrics()
-
+    print(assets_cov, weights)
     # Calculate Variance
     Var = risk_met.calculate_variance(assets_cov, weights)
 
@@ -89,7 +93,7 @@ def generate_risk_stats(
     print(CDaR)
     return Var, VaR, CVaR, CDaR
 
-from mlfinlab.portfolio_optimization import ReturnsEstimation
+from mlfinlab.portfolio_optimization import ReturnsEstimators
 from stocks.util.df_styling import apply_returns_styling
 def generate_estimated_returns(
         stocks, 
@@ -110,7 +114,7 @@ def generate_estimated_returns(
     """
 
     asset_prices = get_prices(stocks, start_date, end_date)
-    ret_est = ReturnsEstimation()
+    ret_est = ReturnsEstimators()
     # Calculate annualised mean historical returns for daily data
     assets_annual_returns = ret_est.calculate_mean_historical_returns(asset_prices, frequency=252)
     annual_column_name = f"Mean Returns from {start_date} to {end_date}"
