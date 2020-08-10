@@ -12,11 +12,11 @@ stocks:
   - IP.CN
 # will check against types, if array use the weights, else use equal
 weights: 
-  - 0.12527
+  - 0.125
   - 0.026
-  - 0.1768
-  - 0.04563
-  - 0.62626
+  - 0.177
+  - 0.045
+  - 0.626
 risk:
   # outputs Variance, Var, etc ...
   # Too cheap to use cloud sql and might have multiple 
